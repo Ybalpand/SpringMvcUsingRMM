@@ -45,7 +45,7 @@ public class Document implements Serializable{
 		this.documentName = documentName;
 	}
 
-	@JsonSerialize(using=DateSerializer.class)
+	//@JsonSerialize(using=DateSerializer.class)
 	public Date getDocumentExpiryDate() {
 		return documentExpiryDate;
 	}

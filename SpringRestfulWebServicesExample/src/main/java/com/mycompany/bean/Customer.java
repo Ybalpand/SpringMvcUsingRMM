@@ -51,7 +51,7 @@ public class Customer implements Serializable {
 		this.customerName = customerName;
 	}
 
-	@JsonSerialize(using = DateSerializer.class)
+//	@JsonSerialize(using = DateSerializer.class)
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
