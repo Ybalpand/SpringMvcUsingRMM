@@ -4,13 +4,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +23,11 @@ import com.mycompany.service.CustomerService;
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
-	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
 	CustomerService customerService;
 
+	@ExceptionHandler(Exception.class)  
 	// 1
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -51,10 +48,7 @@ public class CustomerController {
 	// 3
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") int customerId) {
-		System.out.println("Start getCustomerById....");
-		System.out.println("In getCustomerby Id Controller,Customer id " + customerId);
 		Customer customer = customerService.getCustomerById(customerId);
-
 		if (customerId <= 0) {
 			System.out.println("400 (BAD REQUEST) : " + customerId);
 			return new ResponseEntity<Customer>(HttpStatus.BAD_REQUEST);
@@ -67,7 +61,7 @@ public class CustomerController {
 	}
 
 	// 4
-	@RequestMapping(value = "/updateCustomer", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public Customer putCustomers(@RequestBody Customer customer) {
 		System.out.println(" Updated Customer ...");
@@ -76,7 +70,7 @@ public class CustomerController {
 	}
 
 	// 5
-	@RequestMapping(value = "/deleteCustomer/{customerId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{customerId}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public @ResponseBody void deleteCustomer(@PathVariable("customerId") int customerId) {
 		System.out.println("Start deleteCustomer....");
@@ -94,26 +88,24 @@ public class CustomerController {
 	}
 
 	// 7
-	@RequestMapping(value = "/DOB/{dateOfBirth}", method = RequestMethod.GET)
+	@RequestMapping(value = "/dob/{dateOfBirth}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public List<Customer> getCustomerByDOB(@PathVariable("dateOfBirth") String dateOfBirth) throws ParseException {
 		System.out.println(dateOfBirth.toString());
 		System.out.println(" Get customerId with Gender....");
 		Date dob = DateFormate.typecastToDate(dateOfBirth);
-		return customerService.getCustomerbyDOB(dob);
+		return customerService.getCustomerbyDob(dob);
 	}
 	
 	
-	// 8 GenderWithDOB
-	
+	// 8 GenderWithDob
 	@RequestMapping(value = "/{gender}/{dateOfBirth}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public List<Customer> getCustomerByGenderWithDOB(@PathVariable("gender") String gender, @PathVariable("dateOfBirth") String dateOfBirth) throws ParseException {
-		
 		System.out.println("Enter in Get Customer by gender and date of birth");
 		Gender genderParam = Gender.valueOf(gender);		
 		Date dob = DateFormate.typecastToDate(dateOfBirth);		
-		return customerService.getCustomerByGenderWithDOB(genderParam, dob);
+		return customerService.getCustomerByGenderWithDob(genderParam, dob);
 		
 	}
 }

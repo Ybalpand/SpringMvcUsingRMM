@@ -11,11 +11,11 @@ import com.mycompany.bean.Document;
 import com.mycompany.bean.Gender;
 
 public class TestCustomerSpringRestApi {
-	public static final String GET_ALL_CUSTOMER = "http://localhost:8080/SpringRestfulWebServicesExample/getAllCustomers";
-	public static final String GET_CUSTOMER_BY_ID = "http://localhost:8080/SpringRestfulWebServicesExample/getCustomer/1";
-	public static final String ADD_NEW_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/addCustomer";
-	public static final String UPDATE_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/updateCustomer";
-	public static final String DELETE_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/deleteCustomer/1";
+	public static final String GET_ALL_CUSTOMER = "http://localhost:8080/SpringRestfulWebServicesExample/customers/" ;
+	public static final String GET_CUSTOMER_BY_ID = "http://localhost:8080/SpringRestfulWebServicesExample/customers/1";
+	public static final String ADD_NEW_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/customers";
+	public static final String UPDATE_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/customers";
+	public static final String DELETE_CUST = "http://localhost:8080/SpringRestfulWebServicesExample/customers/1";
 	
 	public static void main(String[] args) {
 		
